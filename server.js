@@ -51,6 +51,16 @@ app.get('/retrieve', (req, res) => {
     
 });
 
+
+//have to check on refresh
+app.get('/onrefresh', (req, res) => {
+    if (interval) {
+        res.send(true);
+    } else {
+        res.send('Continuous function is not running.');
+    }
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
