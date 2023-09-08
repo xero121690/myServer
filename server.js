@@ -20,6 +20,7 @@ function myContinuousFunction() {
 app.get('/start', (req, res) => {
     if (!interval) {
         interval = setInterval(myContinuousFunction, 1000); // Start the interval if it's not already running (every 1 second)
+        // no need to send anything - like it but might delete later
         res.send('Continuous function started.');
     } else {
         res.send('Continuous function is already running.');
@@ -46,7 +47,7 @@ app.get('/retrieve', (req, res) => {
         // interval = null; // Reset the interval variable
         
         // seconds = 0; // Reset the seconds counter
-        res.send({data: `Continuous function stopped. Seconds elapsed: ${totalTime}`});
+        res.send(`Continuous function stopped. Seconds elapsed: ${totalTime}`);
     
 });
 
