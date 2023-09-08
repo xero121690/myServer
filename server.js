@@ -42,22 +42,18 @@ app.get('/stop', (req, res) => {
 });
 
 app.get('/retrieve', (req, res) => {
-    
-        // clearInterval(interval); // Stop the interval if it's running
-        // interval = null; // Reset the interval variable
-        
-        // seconds = 0; // Reset the seconds counter
-        res.send(`Continuous function stopped. Seconds elapsed: ${totalTime}`);
-    
+        res.send(`${totalTime}`);
 });
 
 
 //have to check on refresh
 app.get('/onrefresh', (req, res) => {
+    console.log(interval);
+    // if interval running, stop button appears
     if (interval) {
         res.send(true);
     } else {
-        res.send('Continuous function is not running.');
+        res.send(false);
     }
 })
 
