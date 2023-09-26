@@ -5,6 +5,8 @@ const port = 3000;
 import cors from 'cors'
 
 app.use(cors());
+// this express.json needs to be used to access body
+app.use(express.json())
 
 const db = mysql2.createConnection({
     host:"localhost",
@@ -91,6 +93,35 @@ app.get('/onrefresh', (req, res) => {
         res.send(false);
     }
 })
+
+// deleted data history of 1 user
+app.delete("/history/:id", (req, res)=> {
+    const DataID = req.params.id;
+    const q = "DELETE FROM userdata WHERE DataID = ?";
+
+    db.query(q, [DataID], (err, data) => {
+        if (err) return res.json(err)
+        return res.json("time history has been successfully deleted")
+    })
+})
+
+app.put("/history/:id", (req, res)=> {
+    const DataID = req.params.id;
+    console.log(req.body)
+    const q = "UPDATE userdata SET `seconds` = ? WHERE DataID = ?";
+
+    const values = [
+        req.body.seconds
+    ]
+
+   
+
+    db.query(q, [...values, DataID], (err, data) => {
+        if (err) return res.json(err)
+        return res.json("book has been updated successfully.")
+    })
+})
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
